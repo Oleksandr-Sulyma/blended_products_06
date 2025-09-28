@@ -6,9 +6,8 @@ export function renderCategories(categories) {
     .map(
       category => `
      <li class="categories__item">
-   <button class="categories__btn" type="button">${category}</button>
- </li>   
-        `
+      <button class="categories__btn ${category === "All" ? 'categories__btn--active' : ''}" type="button">${category}</button>
+    </li>`
     )
     .join('');
   refs.elCategories.insertAdjacentHTML('beforeend', markup);
