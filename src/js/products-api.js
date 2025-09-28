@@ -1,15 +1,18 @@
 import axios, { Axios } from 'axios';
+import { limit, currentPage } from './constants.js';
+// API ендпоінт №1: базовий URL
 const requestDummy = axios.create({
   baseURL: 'https://dummyjson.com/products',
 });
 
-const limit = 12; // кількість продуктів на сторінку
-// const skip = (page - 1) * limit; // для пагінації
-
 // API ендпоінт №2: функция getAllProducts(). Не приймає параметри, повертає проміс з даними (всі продукти з пагінацією)
-export const getAllProducts = async (skip = 0) => {
+export const getAllProducts = async (currentPage = 1) => {
   try {
-    const response = await requestDummy.get(`?limit=${limit}&skip=${skip}&select=id,thumbnail,title,brand,category,price`);
+    const response = await requestDummy.get(
+      `?limit=${limit}&skip=${
+        (currentPage - 1) * limit
+      }&select=id,thumbnail,title,brand,category,price`
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -28,12 +31,14 @@ export const getProductById = async id => {
   }
 };
 
-// API ендпоінт №4: функція searchProducts(query). Приймає рядок пошукового запиту, повертає проміс з даними (список товарів, 
+// API ендпоінт №4: функція searchProducts(query). Приймає рядок пошукового запиту, повертає проміс з даними (список товарів,
 // що відповідають пошуковому запиту)
-export const searchProducts = async (query, skip = 0) => {
+export const searchProducts = async (query, currentPage = 1) => {
   try {
     const response = await requestDummy.get(
-      `/search?q=${query}&limit=${limit}&skip=${skip}&select=id,thumbnail,title,brand,category,price`
+      `/search?q=${query}&limit=${limit}&skip=${
+        (currentPage - 1) * limit
+      }&select=id,thumbnail,title,brand,category,price`
     );
     return response.data;
   } catch (error) {
@@ -53,10 +58,12 @@ export const getCategoryList = async () => {
 
 // API ендпоінт №6: функція getProductsByCategory(category). Приймає назву категорії, повертає проміс з даними (список
 // продуктів у вказаній категорії)
-export const getProductsByCategory = async (category, skip = 0) => {
+export const getProductsByCategory = async (category, currentPage = 1) => {
   try {
     const response = await requestDummy.get(
-      `/category/${category}?limit=${limit}&skip=${skip}&select=id,thumbnail,title,brand,category,price`
+      `/category/${category}?limit=${limit}&skip=${
+        (currentPage - 1) * limit
+      }&select=id,thumbnail,title,brand,category,price`
     );
     return response.data;
   } catch (error) {
@@ -64,11 +71,13 @@ export const getProductsByCategory = async (category, skip = 0) => {
   }
 };
 
-
-
 //для перевірки роботи функцій:
 getAllProducts().then(data => console.log('getAllProducts- ', data));
-getProductsByCategory("smartphones").then(data => console.log('getProductsByCategory("smartphones")- ', data));
+getProductsByCategory('smartphones').then(data =>
+  console.log('getProductsByCategory("smartphones")- ', data)
+);
 getProductById(10).then(data => console.log('getProductById(5)- ', data));
-searchProducts("phone").then(data => console.log('searchProducts("phone")- ',data));
-getCategoryList().then(data => console.log('getCategoryList- ',data));
+searchProducts('phone').then(data =>
+  console.log('searchProducts("phone")- ', data)
+);
+getCategoryList().then(data => console.log('getCategoryList- ', data));
