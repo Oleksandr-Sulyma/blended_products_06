@@ -13,7 +13,7 @@ export const getAllProducts = async (currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return response.data;
+    return response.data.products;
   } catch (error) {
     throw error;
   }
