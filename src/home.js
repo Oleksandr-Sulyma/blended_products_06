@@ -8,7 +8,12 @@ import {
 } from './js/products-api.js';
 import refs from './js/refs.js';
 
-import { renderCategories, renderProduct } from './js/render-function.js';
+import {
+  closeCardProduct,
+  renderCardProduct,
+  renderCategories,
+  renderProduct,
+} from './js/render-function.js';
 
 async function init() {
   try {
@@ -48,4 +53,34 @@ async function triggerCategory(e) {
   } catch (error) {
     console.log(error.message);
   }
+}
+
+refs.elProducts.addEventListener('click', handleOpenCardProduct);
+
+async function handleOpenCardProduct(e) {
+  e.preventDefault();
+  const element = e.target.closest('.products__item');
+  if (!element) {
+    return;
+  }
+
+  refs.modal.classList.add('modal--is-open');
+  const productId = element.dataset.id;
+
+  try {
+    const responseProductsCard = await getProductById(productId);
+    renderCardProduct(responseProductsCard);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+refs.modal.addEventListener('click', handleCardProduct);
+
+function handleCardProduct(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('modal__close-btn')) {
+    return closeCardProduct();
+  }
+  // додати функціонал по іншим кнопкам картки
 }
