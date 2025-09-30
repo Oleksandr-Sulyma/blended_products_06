@@ -15,12 +15,18 @@ import {
   renderProduct,
 } from './js/render-function.js';
 
+import { showLoadMoreButton, scrollItem } from './js/helpers.js';
+import { currentPage } from './js/constants.js';
+
+let locCurrentPage = currentPage;
+
 async function init() {
   try {
     const response = await getCategoryList();
     renderCategories(response);
-    const responseProdacts = await getAllProducts();
-    renderProduct(responseProdacts);
+    const { data, total } = await getAllProducts();
+    renderProduct(data);
+    showLoadMoreButton(total, locCurrentPage);
   } catch (error) {
     console.log(error.message);
   }
@@ -32,6 +38,7 @@ refs.elCategories.addEventListener('click', triggerCategory);
 async function triggerCategory(e) {
   e.preventDefault();
   if (!e.target.classList.contains('categories__btn')) return;
+  locCurrentPage = 1;
 
   e.currentTarget
     .querySelector('.categories__btn--active')
@@ -44,11 +51,13 @@ async function triggerCategory(e) {
 
   try {
     if (buttonValue !== 'all') {
-      const responseProducts = await getProductsByCategory(buttonValue);
-      renderProduct(responseProducts);
+      const { data, total } = await getProductsByCategory(buttonValue);
+      renderProduct(data);
+      showLoadMoreButton(total, locCurrentPage);
     } else {
-      const responseProducts = await getAllProducts();
-      renderProduct(responseProducts);
+      const { data, total } = await getAllProducts();
+      renderProduct(data);
+      showLoadMoreButton(total, locCurrentPage);
     }
   } catch (error) {
     console.log(error.message);
@@ -83,4 +92,39 @@ function handleCardProduct(e) {
     return closeCardProduct();
   }
   // додати функціонал по іншим кнопкам картки
+}
+
+refs.loadMoreButton.addEventListener('click', triggerLoadMore);
+
+async function triggerLoadMore(e) {
+  e.preventDefault();
+
+  locCurrentPage += 1;
+  refs.loadMoreButton.disabled = true;
+
+  const activeCategory = refs.elCategories
+    .querySelector('.categories__btn.categories__btn--active')
+    .textContent.trim()
+    .toLowerCase();
+
+  try {
+    if (activeCategory !== 'all') {
+      const { data, total } = await getProductsByCategory(
+        activeCategory,
+        locCurrentPage
+      );
+      renderProduct(data);
+      showLoadMoreButton(total, locCurrentPage);
+    } else {
+      const { data, total } = await getAllProducts(locCurrentPage);
+      renderProduct(data);
+      showLoadMoreButton(total, locCurrentPage);
+    }
+    const galleryItem = refs.elProducts.querySelector('.products__item');
+    scrollItem(galleryItem);
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    refs.loadMoreButton.disabled = false;
+  }
 }
