@@ -1,4 +1,3 @@
-import { limit } from './constants.js';
 import refs from './refs.js';
 
 // функція рендерить список категорій у контейнер
@@ -39,12 +38,7 @@ export function renderProduct(products) {
 
 // функція створює HTML-розмітку для картки продукту
 function markupCardProduct(product) {
-  const tags = product.tags
-    .map(
-      el =>
-        `<li>${el}</li>`
-    )
-    .join('');
+  const tags = product.tags.map(el => `<li>${el}</li>`).join('');
   return `
     <img class="modal-product__img" src="${product.thumbnail}" alt="${product.title}" />
       <div class="modal-product__content">
@@ -66,9 +60,6 @@ export function renderCardProduct(product) {
 
 // функція закриває картку продукту
 export function closeCardProduct() {
-refs.cardProduct.innerHTML = '';
-refs.modal.classList.remove('modal--is-open')  
+  refs.cardProduct.innerHTML = '';
+  refs.modal.classList.remove('modal--is-open');
 }
-
-// функція обчислює загальну кількість сторінок
-export const lastPage = (response) => Math.ceil(total / limit);

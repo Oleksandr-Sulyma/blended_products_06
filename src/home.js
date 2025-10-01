@@ -25,6 +25,7 @@ import {
 
 let currentPage = 1;
 let search;
+const searchInput = refs.searchProducts.elements.searchValue;
 
 // ініціалізація сторінки
 async function init() {
@@ -50,13 +51,13 @@ refs.elCategories.addEventListener('click', triggerCategory);
 
 async function triggerCategory(e) {
   currentPage = 1;
-
+searchInput.value = ''
   e.preventDefault();
   if (!e.target.classList.contains('categories__btn')) return;
 
   e.currentTarget
     .querySelector('.categories__btn--active')
-    .classList.remove('categories__btn--active');
+    ?.classList.remove('categories__btn--active');
 
   const button = e.target.closest('.categories__btn');
   button.classList.add('categories__btn--active');
@@ -104,7 +105,7 @@ async function handleSearchProducts(e) {
 refs.clearBtn.addEventListener('click', handleClearSearch);
 
 async function handleClearSearch() {
-  const searchInput = refs.searchProducts.elements.searchValue;
+  // const searchInput = refs.searchProducts.elements.searchValue;
   searchInput.value = '';
   searchInput.focus();
   refs.elProducts.innerHTML = '';
