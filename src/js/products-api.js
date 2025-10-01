@@ -1,5 +1,5 @@
 import axios, { Axios } from 'axios';
-import { limit, currentPage } from './constants.js';
+import { limit } from './constants.js';
 // API ендпоінт №1: базовий URL
 const requestDummy = axios.create({
   baseURL: 'https://dummyjson.com/products',
@@ -13,7 +13,7 @@ export const getAllProducts = async (currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return response.data;
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }
@@ -40,7 +40,7 @@ export const searchProducts = async (query, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return response.data;
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }
@@ -65,19 +65,19 @@ export const getProductsByCategory = async (category, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return response.data;
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }
 };
 
 //для перевірки роботи функцій:
-getAllProducts().then(data => console.log('getAllProducts- ', data));
-getProductsByCategory('smartphones').then(data =>
-  console.log('getProductsByCategory("smartphones")- ', data)
-);
-getProductById(10).then(data => console.log('getProductById(5)- ', data));
-searchProducts('phone').then(data =>
-  console.log('searchProducts("phone")- ', data)
-);
-getCategoryList().then(data => console.log('getCategoryList- ', data));
+// getAllProducts().then(data => console.log('getAllProducts- ', data));
+// getProductsByCategory('smartphones').then(data =>
+//   console.log('getProductsByCategory("smartphones")- ', data)
+// );
+// getProductById(10).then(data => console.log('getProductById(5)- ', data));
+// searchProducts('phone').then(data =>
+//   console.log('searchProducts("phone")- ', data)
+// );
+// getCategoryList().then(data => console.log('getCategoryList- ', data));
