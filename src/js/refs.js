@@ -4,4 +4,5 @@ export default {
   cardProduct: document.querySelector('.modal-product'),
   modal: document.querySelector('.modal'),
   loadMoreButton: document.querySelector('.load-more-btn'),
+  notFoundBlock: document.querySelector('div.not-found'),
 };

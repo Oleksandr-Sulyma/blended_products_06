@@ -68,7 +68,7 @@ export const getProductsByCategory = async (category, currentPage = 1) => {
 
     return { data: response.data.products, total: response.data.total};
   } catch (error) {
-    throw error;
+    throw new Error(error.message);
   }
 };
 

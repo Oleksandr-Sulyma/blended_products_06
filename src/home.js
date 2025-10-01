@@ -15,7 +15,11 @@ import {
   renderProduct,
 } from './js/render-function.js';
 
-import { showLoadMoreButton, scrollItem } from './js/helpers.js';
+import {
+  showLoadMoreButton,
+  hideLoadMoreButton,
+  scrollItem,
+} from './js/helpers.js';
 import { currentPage } from './js/constants.js';
 
 let locCurrentPage = currentPage;
@@ -49,15 +53,29 @@ async function triggerCategory(e) {
   button.classList.add('categories__btn--active');
   refs.elProducts.innerHTML = '';
 
+  if (refs.notFoundBlock.classList.contains('not-found--visible')) {
+    refs.notFoundBlock.classList.remove('not-found--visible');
+  }
+
   try {
     if (buttonValue !== 'all') {
       const { data, total } = await getProductsByCategory(buttonValue);
-      renderProduct(data);
-      showLoadMoreButton(total, locCurrentPage);
+      if (!data.length) {
+        hideLoadMoreButton();
+        refs.notFoundBlock.classList.add('not-found--visible');
+      } else {
+        renderProduct(data);
+        showLoadMoreButton(total, locCurrentPage);
+      }
     } else {
       const { data, total } = await getAllProducts();
-      renderProduct(data);
-      showLoadMoreButton(total, locCurrentPage);
+      if (!data.length) {
+        hideLoadMoreButton();
+        refs.notFoundBlock.classList.add('not-found--visible');
+      } else {
+        renderProduct(data);
+        showLoadMoreButton(total, locCurrentPage);
+      }
     }
   } catch (error) {
     console.log(error.message);
