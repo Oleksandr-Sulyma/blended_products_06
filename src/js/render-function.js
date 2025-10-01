@@ -1,3 +1,4 @@
+import { limit } from './constants.js';
 import refs from './refs.js';
 
 // функція рендерить список категорій у контейнер
@@ -58,11 +59,16 @@ function markupCardProduct(product) {
     `;
 }
 
+// функція рендерить картку продукту у модальне вікно
 export function renderCardProduct(product) {
   refs.cardProduct.innerHTML = markupCardProduct(product);
 }
 
+// функція закриває картку продукту
 export function closeCardProduct() {
 refs.cardProduct.innerHTML = '';
 refs.modal.classList.remove('modal--is-open')  
 }
+
+// функція обчислює загальну кількість сторінок
+export const lastPage = (response) => Math.ceil(total / limit);
