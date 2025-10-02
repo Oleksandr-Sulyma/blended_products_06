@@ -1,5 +1,5 @@
 import axios, { Axios } from 'axios';
-import { limit } from './constants.js';
+import { limit, currentPage } from './constants.js';
 // API ендпоінт №1: базовий URL
 const requestDummy = axios.create({
   baseURL: 'https://dummyjson.com/products',
@@ -13,7 +13,7 @@ export const getAllProducts = async (currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return { data: response.data.products, total: response.data.total };
+    return {data: response.data.products, total: response.data.total};
   } catch (error) {
     throw error;
   }
@@ -40,7 +40,7 @@ export const searchProducts = async (query, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return { data: response.data.products, total: response.data.total };
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -65,7 +65,8 @@ export const getProductsByCategory = async (category, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return { data: response.data.products, total: response.data.total };
+
+    return { data: response.data.products, total: response.data.total};
   } catch (error) {
     throw error;
   }
