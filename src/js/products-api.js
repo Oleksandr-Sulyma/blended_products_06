@@ -1,8 +1,9 @@
 import axios, { Axios } from 'axios';
-import { limit, currentPage } from './constants.js';
+import { limit, baseUrl } from './constants.js';
+
 // API ендпоінт №1: базовий URL
 const requestDummy = axios.create({
-  baseURL: 'https://dummyjson.com/products',
+  baseURL: baseUrl,
 });
 
 // API ендпоінт №2: функция getAllProducts(). Не приймає параметри, повертає проміс з даними (всі продукти з пагінацією)
@@ -13,7 +14,7 @@ export const getAllProducts = async (currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return {data: response.data.products, total: response.data.total};
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }
@@ -40,7 +41,7 @@ export const searchProducts = async (query, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-    return response.data;
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }
@@ -65,8 +66,7 @@ export const getProductsByCategory = async (category, currentPage = 1) => {
         (currentPage - 1) * limit
       }&select=id,thumbnail,title,brand,category,price`
     );
-
-    return { data: response.data.products, total: response.data.total};
+    return { data: response.data.products, total: response.data.total };
   } catch (error) {
     throw error;
   }

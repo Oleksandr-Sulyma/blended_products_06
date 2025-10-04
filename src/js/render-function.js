@@ -38,14 +38,9 @@ export function renderProduct(products) {
 
 // функція створює HTML-розмітку для картки продукту
 function markupCardProduct(product) {
-  const tags = product.tags
-    .map(
-      el =>
-        `<li>${el}</li>`
-    )
-    .join('');
+  const tags = product.tags.map(el => `<li>${el}</li>`).join('');
   return `
-    <img class="modal-product__img" src="${product.thumbnail}" alt="${product.title}" />
+    <img class="modal-product__img" src="${product.thumbnail}" alt="${product.id}" />
       <div class="modal-product__content">
         <p class="modal-product__title">${product.title}</p>
         <ul class="modal-product__tags">${tags}</ul>
@@ -58,11 +53,9 @@ function markupCardProduct(product) {
     `;
 }
 
+// функція рендерить картку продукту у модальне вікно
 export function renderCardProduct(product) {
   refs.cardProduct.innerHTML = markupCardProduct(product);
 }
 
-export function closeCardProduct() {
-refs.cardProduct.innerHTML = '';
-refs.modal.classList.remove('modal--is-open')  
-}
+
