@@ -141,6 +141,3 @@ async function triggerLoadMore(e) {
 
 // відкриття картки товару
 refs.elProducts.addEventListener('click', handleOpenCardProduct);
-
-
-
