@@ -1,8 +1,9 @@
 import axios, { Axios } from 'axios';
-import { limit } from './constants.js';
+import { limit, baseUrl } from './constants.js';
+
 // API ендпоінт №1: базовий URL
 const requestDummy = axios.create({
-  baseURL: 'https://dummyjson.com/products',
+  baseURL: baseUrl,
 });
 
 // API ендпоінт №2: функция getAllProducts(). Не приймає параметри, повертає проміс з даними (всі продукти з пагінацією)

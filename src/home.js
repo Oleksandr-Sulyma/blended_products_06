@@ -1,27 +1,28 @@
 //Логіка сторінки Home
 import {
   getAllProducts,
-  getProductsByCategory,
-  getProductById,
-  searchProducts,
+  // getProductById,
+  // searchProducts,
   getCategoryList,
 } from './js/products-api.js';
 import refs from './js/refs.js';
 
 import {
-  closeCardProduct,
-  renderCardProduct,
+  // closeCardProduct,
+  // renderCardProduct,
   renderCategories,
   renderProduct,
 } from './js/render-function.js';
 
 import {
   showLoadMoreButton,
-  scrollItem,
-  lastPage,
+  // scrollItem,
+  // lastPage,
   loadProducts,
   loadSearchProducts,
 } from './js/helpers.js';
+
+import { handleOpenCardProduct, handleCardProduct } from './js/modal.js';
 
 let currentPage = 1;
 let search;
@@ -51,7 +52,7 @@ refs.elCategories.addEventListener('click', triggerCategory);
 
 async function triggerCategory(e) {
   currentPage = 1;
-searchInput.value = ''
+  searchInput.value = '';
   e.preventDefault();
   if (!e.target.classList.contains('categories__btn')) return;
 
@@ -64,17 +65,6 @@ searchInput.value = ''
   const activeCategory = button.textContent.trim().toLowerCase();
   refs.elProducts.innerHTML = '';
   loadProducts(activeCategory, currentPage);
-}
-
-// функціонал закриття картки товару
-refs.modal.addEventListener('click', handleCardProduct);
-
-function handleCardProduct(e) {
-  e.preventDefault();
-  if (e.target.classList.contains('modal__close-btn')) {
-    return closeCardProduct();
-  }
-  // додати функціонал по іншим кнопкам картки
 }
 
 // функціонал пошуку товарів за допомогою форми
@@ -149,23 +139,8 @@ async function triggerLoadMore(e) {
   }
 }
 
-// функціонал відкриття картки товару
+// відкриття картки товару
 refs.elProducts.addEventListener('click', handleOpenCardProduct);
 
-async function handleOpenCardProduct(e) {
-  e.preventDefault();
-  const element = e.target.closest('.products__item');
-  if (!element) {
-    return;
-  }
 
-  refs.modal.classList.add('modal--is-open');
-  const productId = element.dataset.id;
 
-  try {
-    const response = await getProductById(productId);
-    renderCardProduct(response);
-  } catch (error) {
-    console.log(error.message);
-  }
-}

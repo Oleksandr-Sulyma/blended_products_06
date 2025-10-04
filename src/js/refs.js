@@ -7,4 +7,5 @@ export default {
   notFound: document.querySelector('.not-found'),
   clearBtn: document.querySelector('.search-form__btn-clear'),
   loadMoreButton: document.querySelector('.load-more-btn'),
+  
 };

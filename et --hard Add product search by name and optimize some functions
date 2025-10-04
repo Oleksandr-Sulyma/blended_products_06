@@ -1,0 +1,21 @@
+[33m2f35aa8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msearch[m[33m)[m Merge branch 'main' of https://github.com/Oleksandr-Sulyma/blended_products_06 into search
+[33mb917743[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #6 from Oleksandr-Sulyma/categoryFilter
+[33m37810f1[m[33m ([m[1;31morigin/search[m[33m)[m Add product search by name and optimize some functions
+[33md418f65[m Merge branch 'main' of https://github.com/Oleksandr-Sulyma/blended_products_06 into search
+[33mfda4a09[m Add empty products response functionality.
+[33m0811232[m added product search functionality
+[33m206ca90[m Merge pull request #5 from Oleksandr-Sulyma/categoryFilter
+[33mb7cc92c[m Added load more functionality.
+[33m0473307[m Merge pull request #4 from Oleksandr-Sulyma/Card-product
+[33me53f705[m[33m ([m[1;31morigin/Card-product[m[33m, [m[1;32mCard-product[m[33m)[m maked task №4
+[33mca21089[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #3 from Oleksandr-Sulyma/categoryFilter
+[33m958ceb1[m Added category filter functionality.
+[33m3375b95[m Merge pull request #2 from Oleksandr-Sulyma/products
+[33mdf2773f[m products items
+[33m2450de4[m Merge pull request #1 from Oleksandr-Sulyma/categories
+[33m8fd1b35[m[33m ([m[1;31morigin/categories[m[33m)[m add render categories
+[33ma3ef0d7[m fixed functions products-api
+[33m5883a33[m fix products-api functions (select specific data)
+[33m04020eb[m Add functions for products-api
+[33m19a7264[m fix: correct base path for GitHub Pages build
+[33m78af92a[m Initial commit
